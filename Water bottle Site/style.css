@@ -1,0 +1,520 @@
+/* ----- FONT FACE ----- */
+@font-face {
+    font-family: 'AnacondaWildstyle';
+    src: url('fonts/AnacondaWildstyle.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ----- RESET & BASE ----- */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;          /* NO SCROLL */
+    background: #f2e8dc;
+    font-family: 'AnacondaWildstyle', 'Georgia', serif;
+    touch-action: none;        /* prevent pull-to-refresh */
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* ----- SCREEN 1 (full viewport) ----- */
+#screen1 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #f2e8dc;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    overflow: hidden;
+}
+
+/* ----- HEADER ----- */
+.header {
+    flex: 0 0 auto;
+    width: 100%;
+    background: #1e2a35;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5vh 0;
+    min-height: 10vh;
+    max-height: 18vh;
+    z-index: 2;
+}
+
+.header .logo {
+    height: 7vh;
+    width: auto;
+    max-height: 70px;
+    object-fit: contain;
+    display: block;
+}
+
+/* ----- MAIN CONTENT ----- */
+.main-content {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2vh 5vw;
+    position: relative;
+    z-index: 1;
+    min-height: 0;
+}
+
+.welcome-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* ----- WELCOME TEXT WITH BURST ----- */
+.welcome-text {
+    font-family: 'AnacondaWildstyle', 'Georgia', serif;
+    font-size: clamp(2.4rem, 10vw, 5.5rem);
+    color: #1e2a35;
+    text-align: center;
+    line-height: 1.15;
+    letter-spacing: 0.04em;
+    text-shadow: 0 2px 12px rgba(30, 42, 53, 0.08);
+    transform-origin: center center;
+    animation: burstIn 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    position: relative;
+    z-index: 2;
+    padding: 0 2vw;
+}
+
+@keyframes burstIn {
+    0%   { transform: scale(0.2) rotate(-2deg); opacity: 0; filter: blur(8px); }
+    35%  { transform: scale(1.25) rotate(0.5deg); opacity: 1; filter: blur(0px); }
+    55%  { transform: scale(0.92) rotate(-0.2deg); opacity: 1; filter: blur(0px); }
+    75%  { transform: scale(1.06) rotate(0.1deg); opacity: 1; filter: blur(0px); }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; filter: blur(0px); }
+}
+
+/* ----- BURST PARTICLES ----- */
+.burst-particles {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.burst-particle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(30, 42, 53, 0.15);
+    animation: particleFly 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    opacity: 0;
+}
+
+.burst-particle:nth-child(1)  { width: 12px; height: 12px; animation-delay: 0.05s; --tx: -120px; --ty: -80px; --s: 0.6; }
+.burst-particle:nth-child(2)  { width: 18px; height: 18px; animation-delay: 0.10s; --tx: 140px; --ty: -60px; --s: 0.8; }
+.burst-particle:nth-child(3)  { width: 10px; height: 10px; animation-delay: 0.15s; --tx: -80px; --ty: 100px; --s: 0.5; }
+.burst-particle:nth-child(4)  { width: 22px; height: 22px; animation-delay: 0.20s; --tx: 100px; --ty: 90px; --s: 0.9; }
+.burst-particle:nth-child(5)  { width: 14px; height: 14px; animation-delay: 0.08s; --tx: -160px; --ty: 20px; --s: 0.7; }
+.burst-particle:nth-child(6)  { width: 16px; height: 16px; animation-delay: 0.18s; --tx: 170px; --ty: 30px; --s: 0.75; }
+.burst-particle:nth-child(7)  { width: 20px; height: 20px; animation-delay: 0.12s; --tx: -40px; --ty: -140px; --s: 0.85; }
+.burst-particle:nth-child(8)  { width: 8px; height: 8px; animation-delay: 0.22s; --tx: 60px; --ty: -120px; --s: 0.4; }
+.burst-particle:nth-child(9)  { width: 24px; height: 24px; animation-delay: 0.06s; --tx: -200px; --ty: -10px; --s: 1.0; }
+.burst-particle:nth-child(10) { width: 11px; height: 11px; animation-delay: 0.16s; --tx: 200px; --ty: -10px; --s: 0.55; }
+.burst-particle:nth-child(11) { width: 15px; height: 15px; animation-delay: 0.14s; --tx: -10px; --ty: 140px; --s: 0.65; }
+.burst-particle:nth-child(12) { width: 19px; height: 19px; animation-delay: 0.09s; --tx: 10px; --ty: -160px; --s: 0.8; }
+
+@keyframes particleFly {
+    0%   { transform: translate(0,0) scale(0); opacity: 0; }
+    20%  { opacity: 0.9; transform: translate(calc(var(--tx)*0.3), calc(var(--ty)*0.3)) scale(var(--s)); }
+    60%  { opacity: 0.7; transform: translate(calc(var(--tx)*0.8), calc(var(--ty)*0.8)) scale(var(--s)); }
+    100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0.2); }
+}
+
+/* ----- BURST RINGS ----- */
+.burst-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30vw;
+    height: 30vw;
+    transform: translate(-50%, -50%) scale(0);
+    border-radius: 50%;
+    border: 2px solid rgba(30, 42, 53, 0.08);
+    animation: ringExpand 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    pointer-events: none;
+    z-index: 0;
+}
+.burst-ring:nth-of-type(2) {
+    width: 45vw;
+    height: 45vw;
+    border-color: rgba(30, 42, 53, 0.05);
+    animation-delay: 0.15s;
+    border-width: 1.5px;
+}
+
+@keyframes ringExpand {
+    0%   { transform: translate(-50%, -50%) scale(0.2); opacity: 0.8; }
+    50%  { opacity: 0.6; transform: translate(-50%, -50%) scale(1.4); }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(2.2); }
+}
+
+/* ----- FOOTER ----- */
+.footer {
+    flex: 0 0 auto;
+    width: 100%;
+    min-height: 12vh;
+    max-height: 35vh;   /* set your desired max height */
+    overflow: hidden;   /* hide any overflow */
+    background-color: #f2e8dc;
+    position: relative;
+    z-index: 2;
+}
+
+.footer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;   /* ← shows the top */
+    display: block;
+}
+
+/* ----- RESPONSIVE FINE-TUNING ----- */
+@media (max-width: 400px) {
+    .welcome-text { font-size: clamp(1.8rem, 9vw, 3rem); }
+    .header .logo { height: 5.5vh; max-height: 50px; }
+    .burst-particle { display: none; }
+    .burst-particle:nth-child(1),
+    .burst-particle:nth-child(2),
+    .burst-particle:nth-child(3),
+    .burst-particle:nth-child(4) { display: block; }
+}
+@media (max-width: 350px) {
+    .welcome-text { font-size: clamp(1.4rem, 8vw, 2.2rem); }
+    .header { padding: 1vh 0; min-height: 8vh; }
+    .header .logo { height: 4.5vh; max-height: 40px; }
+    .footer { min-height: 10vh; }
+}
+@media (orientation: landscape) and (max-height: 500px) {
+    .header .logo { height: 6vh; max-height: 50px; }
+    .welcome-text { font-size: clamp(1.6rem, 7vh, 3.2rem); }
+    .footer { min-height: 10vh; max-height: 18vh; }
+    .burst-particle { display: none; }
+    .burst-particle:nth-child(1),
+    .burst-particle:nth-child(2),
+    .burst-particle:nth-child(3),
+    .burst-particle:nth-child(4) { display: block; }
+}
+
+/* ----- SCREEN 2 (hidden by default) ----- */
+#screen2 {
+    display: none;
+}
+/* ----- SCREEN 2 ----- */
+#screen2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #f2e8dc;
+    display: flex;           /* always flex, but hidden via opacity */
+    flex-direction: column;
+    z-index: 20;
+    overflow: hidden;
+    opacity: 0;              /* start invisible */
+    transition: opacity 0.8s ease;
+    pointer-events: none;    /* prevent interaction while hidden */
+}
+
+#screen2.active {
+    opacity: 1;
+    pointer-events: auto;    /* allow interaction once visible */
+}
+
+/* the text styling (same as before) */
+.screen2-text {
+    font-family: 'AnacondaWildstyle', 'Georgia', serif;
+    font-size: clamp(2.4rem, 10vw, 5.5rem);
+    text-align: center;
+    line-height: 1.3;
+    letter-spacing: 0.04em;
+    text-shadow: 0 2px 12px rgba(30, 42, 53, 0.08);
+    padding: 0 2vw;
+}
+
+.screen2-text .dark-text {
+    color: #1e2a35;
+}
+
+.screen2-text .gold-text {
+    color: #D4AF37;
+}
+
+/* ensure main-content & welcome-wrapper work inside screen2 */
+#screen2 .main-content {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2vh 5vw;
+    position: relative;
+    z-index: 1;
+    min-height: 0;
+}
+
+#screen2 .welcome-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+/* ===== SCREEN 2 – VERTICALLY CENTERED & POLISHED ===== */
+
+#screen2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #f2e8dc;
+    display: flex;
+    flex-direction: column;
+    z-index: 20;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    pointer-events: none;
+}
+
+#screen2.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Main content – now CENTERED vertically & horizontally */
+#screen2 .main-content {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;        /* vertical centering */
+    justify-content: center;    /* horizontal centering */
+    padding: 2vh 5vw;
+    position: relative;
+    z-index: 1;
+    min-height: 0;
+    width: 100%;
+}
+
+/* Wrapper stacks the heading and card with spacing */
+.screen2-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    gap: 2.8vh;
+}
+
+/* Heading – slightly smaller to leave room for the card */
+.screen2-text {
+    font-family: 'AnacondaWildstyle', 'Georgia', serif;
+    font-size: clamp(2.2rem, 9vw, 4.6rem);
+    text-align: center;
+    line-height: 1.2;
+    letter-spacing: 0.04em;
+    text-shadow: 0 2px 12px rgba(30, 42, 53, 0.08);
+    padding: 0 2vw;
+    margin: 0;
+}
+
+.screen2-text .dark-text {
+    color: #1e2a35;
+}
+
+.screen2-text .gold-text {
+    color: #D4AF37;
+}
+
+/* ===== CARD – ELEVATED & MODERN ===== */
+.card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(4px);
+    border-radius: 28px;
+    padding: 3.5vh 5vw;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 20px 60px rgba(30, 42, 53, 0.08), 0 8px 24px rgba(30, 42, 53, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    transition: transform 0.3s ease;
+}
+
+/* subtle entrance animation for the card */
+#screen2.active .card {
+    animation: cardFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+}
+
+@keyframes cardFadeUp {
+    0%   { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.card-title {
+    font-family: 'AnacondaWildstyle', 'Georgia', serif;
+    color: #1e2a35;
+    font-size: clamp(1.6rem, 5vw, 2.6rem);
+    margin: 0 0 2.2vh 0;
+    padding-bottom: 1.2vh;
+    border-bottom: 3px solid #86652b;
+    display: inline-block;
+    letter-spacing: 0.03em;
+}
+
+/* ===== SOCIAL LINKS – WITH ICON CIRCLES ===== */
+.social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 0.5vh;
+    width: 100%;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 18px;
+    border-radius: 60px;
+    text-decoration: none;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 600;
+    font-size: clamp(0.85rem, 2.8vw, 1.05rem);
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    background: rgba(255, 255, 255, 0.6);
+    border: 1.5px solid rgba(0, 0, 0, 0.04);
+    color: #1e2a35;
+    width: 100%;
+    backdrop-filter: blur(2px);
+}
+
+/* Icon circle – colorful badge */
+.social-link .icon-circle {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.social-link .icon-circle i {
+    color: #fff;
+    font-size: 1.3rem;
+}
+
+/* Facebook specific colors */
+.social-link.facebook .icon-circle {
+    background: linear-gradient(145deg, #1877f2, #0d65d9);
+    box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3);
+}
+
+/* YouTube specific colors */
+.social-link.youtube .icon-circle {
+    background: linear-gradient(145deg, #ff0000, #cc0000);
+    box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
+}
+
+/* Link text – takes remaining space */
+.social-link .link-text {
+    flex: 1;
+    text-align: left;
+    letter-spacing: 0.01em;
+}
+
+/* Hover effects */
+.social-link:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+.social-link:hover .icon-circle {
+    transform: scale(1.08);
+}
+
+/* Facebook hover glow */
+.social-link.facebook:hover {
+    border-color: #1877f2;
+    box-shadow: 0 12px 28px rgba(24, 119, 242, 0.12);
+}
+
+/* YouTube hover glow */
+.social-link.youtube:hover {
+    border-color: #ff0000;
+    box-shadow: 0 12px 28px rgba(255, 0, 0, 0.12);
+}
+
+/* Responsive fine-tuning for small screens */
+@media (max-width: 400px) {
+    .social-link {
+        padding: 10px 14px;
+        gap: 12px;
+    }
+    .social-link .icon-circle {
+        width: 38px;
+        height: 38px;
+    }
+    .social-link .icon-circle i {
+        font-size: 1.1rem;
+    }
+    .card {
+        padding: 2.5vh 4vw;
+    }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+    .card {
+        padding: 2vh 4vw;
+    }
+    .social-link {
+        padding: 8px 14px;
+        gap: 10px;
+    }
+    .social-link .icon-circle {
+        width: 34px;
+        height: 34px;
+    }
+    .social-link .icon-circle i {
+        font-size: 1rem;
+    }
+    .screen2-text {
+        font-size: clamp(1.6rem, 5vh, 2.8rem);
+    }
+    .card-title {
+        font-size: clamp(1.2rem, 3.5vh, 1.8rem);
+        margin-bottom: 1.2vh;
+    }
+    .screen2-wrapper {
+        gap: 1.5vh;
+    }
+}
